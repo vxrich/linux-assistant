@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tutorial/bloc/home_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
 
 import './button.dart';
-import './pages/home.dart';
+import 'screens/home.dart';
 
 // void main() {
 //   runApp(const MyApp());
@@ -31,10 +32,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => TodoBloc(
-              RepositoryProvider.of<TodoRepository>(context),
-            ),
+    return BlocProvide(
+        bloc: HomeBloc(),
         child: const MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
