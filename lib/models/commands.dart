@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 
 class Command extends Equatable {

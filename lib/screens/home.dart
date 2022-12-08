@@ -1,7 +1,7 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tutorial/bloc/commands_bloc.dart';
+import 'package:flutter_tutorial/models/commands.dart';
 import 'package:process_run/shell.dart';
 
 import '../button.dart';
@@ -16,56 +16,68 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Map<String, String>> addedScripts = [];
-
   final List<Map<String, String>> programs = const [
-    {"button": "Open terminal", "command": "gnome-terminal"},
-    {"button": "Open Chrome", "command": "google-chrome"},
-    {"button": "Open Chrome Incognito", "command": "google-chrome --incognito"}
+    {"text": "Open terminal", "command": "gnome-terminal"},
+    {"text": "Open Chrome", "command": "google-chrome"},
+    {"text": "Open Chrome Incognito", "command": "google-chrome --incognito"}
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Row(children: [
-      Column(children: [
-        ...List.generate(
-            programs.length, // Length of the list
-            (index) => Button(
-                action: () => _launchApp(programs[index]["command"]),
-                text: programs[index]["button"] as String)),
-        ...List.generate(
-            addedScripts.length, // Length of the list
-            (index) => Button(
-                action: () => _launchApp(addedScripts[index]["command"]),
-                text: addedScripts[index]["button"] as String)),
-        Button(
-            action: () => {
-                  setState(() {
-                    print("data");
-                    addedScripts = [
-                      ...addedScripts,
-                      {
-                        "button": "Prova",
-                        "command": "google-chrome https://instagram.com"
-                      }
-                    ];
-                  })
-                },
-            text: "+")
-      ]),
-      const Expanded(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter a search term',
+    return Scaffold(body: Center(child:
+        BlocBuilder<CommandsBloc, CommandsState>(builder: (context, state) {
+      if (state is CommandsInitial) {
+        return const CircularProgressIndicator(color: Colors.orange);
+      }
+      if (state is CommandsLoaded) {
+        return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Column(children: [
+            ...List.generate(
+                programs.length, // Length of the list
+                (index) => Button(
+                    action: () => _launchApp(programs[index]["command"]),
+                    text: programs[index]["text"] as String)),
+            ...List.generate(
+                state.commands.length, // Length of the list
+                (index) => Button(
+                    action: () => _launchApp(state.commands[index].command),
+                    text: state.commands[index].text)),
+            Button(
+                action: () => {
+                      setState(() {
+                        print("data");
+                        // state.commands = [
+                        //   ...state.commands,
+                        //   {
+                        //     "button": "Prova",
+                        //     "command": "google-chrome https://instagram.com"
+                        //   }
+                        // ];
+                        context.read<CommandsBloc>().add(const AddCommand(
+                            Command(
+                                text: "Prova",
+                                command:
+                                    "google-chrome https://instagram.com")));
+                      })
+                    },
+                text: "+")
+          ]),
+          const Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter a search term',
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    ]));
+        ]);
+      } else {
+        return const Text("Something went wrong!");
+      }
+    })));
   }
 }
 
