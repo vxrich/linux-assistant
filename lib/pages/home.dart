@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(child:
-        BlocBuilder<CommandsBloc, List<Command>>(builder: (context, state) {
+        BlocBuilder<CommandsBloc, CommandsState>(builder: (context, state) {
       if (state is CommandsInitial) {
         return const CircularProgressIndicator(color: Colors.orange);
       }
@@ -38,10 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     action: () => _launchApp(programs[index]["command"]),
                     text: programs[index]["text"] as String)),
             ...List.generate(
-                state.length, // Length of the list
+                state.commands.length, // Length of the list
                 (index) => Button(
-                    action: () => _launchApp(state[index].command),
-                    text: state[index].text)),
+                    action: () => _launchApp(state.commands[index].command),
+                    text: state.commands[index].text)),
             Button(
                 action: () => {
                       setState(() {
