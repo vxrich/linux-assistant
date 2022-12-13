@@ -13,16 +13,10 @@ class AddCommand extends CommandsEvent {
   final Command command;
 
   const AddCommand(this.command);
-
-  @override
-  List<Object> get props => [];
 }
 
 class RemoveCommand extends CommandsEvent {
   final Command command;
 
   const RemoveCommand(this.command);
-
-  @override
-  List<Object> get props => [];
 }

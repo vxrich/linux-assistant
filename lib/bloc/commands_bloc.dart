@@ -9,26 +9,25 @@ import '../models/commands.dart';
 part 'commands_event.dart';
 part 'commands_state.dart';
 
-class CommandsBloc extends HydratedBloc<CommandsEvent, List<Command>> {
-  CommandsBloc() : super([]) {
+class CommandsBloc extends HydratedBloc<CommandsEvent, CommandsState> {
+  CommandsBloc() : super(CommandsState.initial()) {
     // on<LoadCommands>((event, emit) async {
     //   await Future<void>.delayed(const Duration(seconds: 1));
     //   emit(const CommandsLoaded(commands: <Command>[]));
     // });
     on<AddCommand>((event, emit) {
-      final state = this.state as CommandsLoaded;
-      emit(List.from(state.commands)..add(event.command));
+      emit(CommandsState(
+          commands: List.from(state.commands)..add(event.command)));
     });
-    on<RemoveCommand>((event, emit) {
-      final state = this.state as CommandsLoaded;
-      emit(List.from(state.commands)..remove(event.command));
-    });
+    // on<RemoveCommand>((event, emit) {
+    //   emit(List.from(state)..remove(event.command));
+    // });
   }
 
   @override
-  List<Command> fromJson(Map<String, dynamic> json) =>
-      json['commands'] as List<Command>;
+  CommandsState fromJson(Map<String, dynamic> json) =>
+      json['value'] as CommandsState;
 
   @override
-  Map<String, dynamic> toJson(List<Command> state) => {"commands": state};
+  Map<String, dynamic> toJson(CommandsState state) => {"value": state};
 }

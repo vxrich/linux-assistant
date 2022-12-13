@@ -6,8 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter_tutorial/bloc/commands_bloc.dart';
 
-import './button.dart';
-import 'screens/home.dart';
+import 'pages/home.dart';
 
 // void main() {
 //   runApp(const MyApp());
@@ -20,10 +19,16 @@ void main() async {
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
   );
+
   HydratedBlocOverrides.runZoned(
-    () => runApp(const MyApp()),
+    () => runApp(RepositoryProvider(
+      create: (context) => CommandsBloc(),
+      child: const MyApp(),
+    )),
     storage: storage,
   );
+
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,10 +37,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => CommandsBloc()..add(LoadCommands()))
-        ],
+    return BlocProvider(
+        create: (context) => CommandsBloc(),
         child: const MaterialApp(
           title: 'Flutter Demo',
           // theme: ThemeData(

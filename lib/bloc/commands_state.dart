@@ -1,19 +1,31 @@
 part of 'commands_bloc.dart';
 
-abstract class CommandsState extends Equatable {
-  const CommandsState();
+class CommandsState {
+  const CommandsState({required this.commands});
 
-  @override
-  List<Object> get props => [];
-}
-
-class CommandsInitial extends CommandsState {}
-
-class CommandsLoaded extends CommandsState {
   final List<Command> commands;
 
-  const CommandsLoaded({required this.commands});
+// 1) add toJson method
+  Map<String, dynamic> toJson() => {
+        'commands': commands.map((e) => e.toString()).toList(),
+      };
 
-  @override
-  List<Object> get props => [commands];
+// 2) add fromJson factory
+  factory CommandsState.fromJson(Map<String, dynamic> json) =>
+      CommandsState(commands: json['commands'].map<Command>((e) => e.toList()));
+// 3) add an initial state factory
+  factory CommandsState.initial() => const CommandsState(
+        commands: [],
+      );
 }
+
+// class CommandsInitial extends CommandsState {}
+
+// class CommandsLoaded extends CommandsState {
+//   final List<Command> commands;
+
+//   const CommandsLoaded({required this.commands});
+
+//   @override
+//   List<Object> get props => commands;
+// }
