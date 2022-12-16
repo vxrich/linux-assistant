@@ -6,6 +6,9 @@ import 'package:flutter_tutorial/bloc/commands_bloc.dart';
 import 'package:flutter_tutorial/models/commands.dart';
 import 'package:process_run/shell.dart';
 
+import "../bloc/commands_state.dart";
+import "../bloc/commands_event.dart";
+
 import '../button.dart';
 
 class MyHomePage extends StatefulWidget {

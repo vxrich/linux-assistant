@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../models/commands.dart';
 
-part 'commands_event.dart';
-part 'commands_state.dart';
+import './commands_event.dart';
+import './commands_state.dart';
 
 class CommandsBloc extends HydratedBloc<CommandsEvent, CommandsState> {
   CommandsBloc() : super(CommandsState.initial()) {
@@ -19,15 +18,16 @@ class CommandsBloc extends HydratedBloc<CommandsEvent, CommandsState> {
       emit(CommandsState(
           commands: List.from(state.commands)..add(event.command)));
     });
-    // on<RemoveCommand>((event, emit) {
-    //   emit(List.from(state)..remove(event.command));
-    // });
+    on<RemoveCommand>((event, emit) {
+      emit(CommandsState(
+          commands: List.from(state.commands)..remove(event.command)));
+    });
   }
 
   @override
-  CommandsState fromJson(Map<String, dynamic> json) =>
-      json['value'] as CommandsState;
+  CommandsState? fromJson(Map<String, dynamic> json) =>
+      CommandsState.fromJson(json);
 
   @override
-  Map<String, dynamic> toJson(CommandsState state) => {"value": state};
+  Map<String, dynamic>? toJson(CommandsState state) => state.toJson();
 }

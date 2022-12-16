@@ -1,4 +1,5 @@
-part of 'commands_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_tutorial/models/commands.dart';
 
 abstract class CommandsEvent extends Equatable {
   const CommandsEvent();
