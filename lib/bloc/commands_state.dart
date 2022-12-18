@@ -19,8 +19,7 @@ class CommandsState {
     jsonData['commands'].forEach((e) {
       final decoded = json.decode(e);
 
-      return commands
-          .add(Command(text: decoded["text"], command: decoded["command"]));
+      commands.add(Command(text: decoded["text"], command: decoded["command"]));
     });
 
     return CommandsState(commands: commands);

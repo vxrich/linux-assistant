@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   final Function action;
-  Function? longPressAction;
+  final Function? longPressAction;
   final String text;
 
-  Button({required this.text, required this.action, this.longPressAction});
+  const Button(
+      {super.key,
+      required this.text,
+      required this.action,
+      this.longPressAction});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +18,13 @@ class Button extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () => action(),
           onLongPress: () => longPressAction!(),
-          child: Text(text),
           style: ElevatedButton.styleFrom(
             elevation: 3,
             // shape: RoundedRectangleBorder(
             //     borderRadius: BorderRadius.circular(32.0)),
             minimumSize: const Size(250, 40), //////// HERE
           ),
+          child: Text(text),
         ));
   }
 }

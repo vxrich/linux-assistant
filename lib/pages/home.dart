@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tutorial/bloc/commands_bloc.dart';
@@ -42,34 +40,49 @@ class _MyHomePageState extends State<MyHomePage> {
               state.commands.length, // Length of the list
               (index) => Button(
                   action: () => _launchApp(state.commands[index].command),
+                  longPressAction: () => {
+                        BlocProvider.of<CommandsBloc>(context).add(
+                            const RemoveCommand(Command(
+                                text: "Prova",
+                                command:
+                                    "google-chrome https://instagram.com")))
+                      },
                   text: state.commands[index].text)),
           Button(
               action: () => {
-                    setState(() {
-                      // state.commands.commands = [
-                      //   ...state.commands.commands,
-                      //   {
-                      //     "button": "Prova",
-                      //     "command": "google-chrome https://instagram.com"
-                      //   }
-                      // ];
-                      BlocProvider.of<CommandsBloc>(context).add(
-                          const AddCommand(Command(
-                              text: "Prova",
-                              command: "google-chrome https://instagram.com")));
-                    })
+                    BlocProvider.of<CommandsBloc>(context).add(const AddCommand(
+                        Command(
+                            text: "Prova",
+                            command: "google-chrome https://instagram.com")))
                   },
               text: "+")
         ]),
-        const Expanded(
+        Expanded(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter a search term',
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+            child: Row(children: const [
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Nome comando',
+                ),
               ),
-            ),
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Inserisci comando',
+                ),
+              ),
+              Button(
+                  action: () => {
+                        BlocProvider.of<CommandsBloc>(context).add(
+                            const AddCommand(Command(
+                                text: "Prova",
+                                command:
+                                    "google-chrome https://instagram.com")))
+                      },
+                  text: "Aggiungi comando")
+            ]),
           ),
         ),
       ]);
