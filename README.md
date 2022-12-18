@@ -1,16 +1,14 @@
-# flutter_tutorial
+# Linux Assistant
 
-A new Flutter project.
+This is Linux Assistant a Linux launcher for all of us, linux user, that always wanted to have something like Alfred or Raycast, for our beloved OS.
+It's an open source project, based on Flutter. If you want to contribute fell free to jin the project and contact me.
 
-## Getting Started
+## Next implementations
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+✅ Shell command integration, with built-in commands
+✅ Integration of hydrated bloc to store preferences
+⬜️ Custom shell commands
+⬜️ Automatic program detection
+⬜️ Graphic command creation D&D style  
+⬜️ Shortcut integration to open from background state
+⬜️ Create a preference page to customization
