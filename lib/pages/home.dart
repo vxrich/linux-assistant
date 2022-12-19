@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tutorial/bloc/commands_bloc.dart';
 import 'package:flutter_tutorial/models/commands.dart';
+import 'package:flutter_tutorial/textInput.dart';
 import 'package:process_run/shell.dart';
 
 import "../bloc/commands_state.dart";
@@ -24,6 +25,10 @@ class _MyHomePageState extends State<MyHomePage> {
     {"text": "Open Chrome", "command": "google-chrome"},
     {"text": "Open Chrome Incognito", "command": "google-chrome --incognito"}
   ];
+
+  void handleAdd(context) =>
+      BlocProvider.of<CommandsBloc>(context).add(const AddCommand(Command(
+          text: "Prova", command: "google-chrome https://instagram.com")));
 
   @override
   Widget build(BuildContext context) {
@@ -60,29 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-            child: Row(children: const [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Nome comando',
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Inserisci comando',
-                ),
-              ),
-              Button(
-                  action: () => {
-                        print("e")
-                        // BlocProvider.of<CommandsBloc>(context).add(
-                        //     const AddCommand(Command(
-                        //         text: "Prova",
-                        //         command:
-                        //             "google-chrome https://instagram.com")))
-                      },
-                  text: "Aggiungi comando")
+            child: Row(children: [
+              const TextInput(),
+              const TextInput(),
+              Button(text: "Aggiungi comando", action: () => handleAdd(context))
             ]),
           ),
         ),

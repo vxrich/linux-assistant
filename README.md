@@ -5,10 +5,10 @@ It's an open source project, based on Flutter. If you want to contribute fell fr
 
 ## Next implementations
 
-✅ Shell command integration, with built-in commands
-✅ Integration of hydrated bloc to store preferences
-⬜️ Custom shell commands
-⬜️ Automatic program detection
-⬜️ Graphic command creation D&D style  
-⬜️ Shortcut integration to open from background state
-⬜️ Create a preference page to customization
+✅ Shell command integration, with built-in commands<br/>
+✅ Integration of hydrated bloc to store preferences<br/>
+⬜️ Custom shell commands<br/>
+⬜️ Automatic program detection<br/>
+⬜️ Graphic command creation D&D style<br/>
+⬜️ Shortcut integration to open from background state<br/>
+⬜️ Create a preference page to customization<br/>
