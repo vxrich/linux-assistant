@@ -75,11 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Button(
                   action: () => {
-                        BlocProvider.of<CommandsBloc>(context).add(
-                            const AddCommand(Command(
-                                text: "Prova",
-                                command:
-                                    "google-chrome https://instagram.com")))
+                        print("e")
+                        // BlocProvider.of<CommandsBloc>(context).add(
+                        //     const AddCommand(Command(
+                        //         text: "Prova",
+                        //         command:
+                        //             "google-chrome https://instagram.com")))
                       },
                   text: "Aggiungi comando")
             ]),
