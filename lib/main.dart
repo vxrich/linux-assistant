@@ -39,13 +39,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => CommandsBloc(),
-        child: const MaterialApp(
+        child: MaterialApp(
           title: 'Flutter Demo',
-          // theme: ThemeData(
-          //   primarySwatch: Colors.amber,
-          // ),
+          theme: ThemeData(
+              primarySwatch: Colors.amber, brightness: Brightness.dark),
           themeMode: ThemeMode.dark,
-          home: MyHomePage(title: 'Flutter Demo Home Page'),
+          home: const MyHomePage(title: 'Flutter Demo Home Page'),
         ));
   }
 }

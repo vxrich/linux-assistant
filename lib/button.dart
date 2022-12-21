@@ -4,17 +4,19 @@ class Button extends StatelessWidget {
   final Function action;
   final Function? longPressAction;
   final String text;
+  final EdgeInsets? margin;
 
   const Button(
       {super.key,
       required this.text,
       required this.action,
-      this.longPressAction});
+      this.longPressAction,
+      this.margin});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(top: 10, left: 10, right: 5),
+        margin: margin,
         child: ElevatedButton(
           onPressed: () => action(),
           onLongPress: () => longPressAction!(),
