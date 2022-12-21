@@ -44,7 +44,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               primarySwatch: Colors.amber, brightness: Brightness.dark),
           themeMode: ThemeMode.dark,
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          routes: {
+            "/": (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+          },
         ));
   }
 }
