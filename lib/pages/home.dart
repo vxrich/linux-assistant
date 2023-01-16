@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tutorial/bloc/commands_bloc.dart';
 import 'package:flutter_tutorial/models/commands.dart';
-import 'package:flutter_tutorial/sidebar.dart';
-import 'package:flutter_tutorial/textInput.dart';
+import 'package:flutter_tutorial/components/sidebar.dart';
+import 'package:flutter_tutorial/components/textInput.dart';
+import 'package:flutter_tutorial/components/button.dart';
 import 'package:process_run/shell.dart';
 
 import "../bloc/commands_state.dart";
 import "../bloc/commands_event.dart";
 
-import '../button.dart';
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   final List<Map<String, String>> programs = const [
     {"text": "Open terminal", "command": "gnome-terminal"},
     {"text": "Open Chrome", "command": "google-chrome"},
@@ -52,7 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(child:
             BlocBuilder<CommandsBloc, CommandsState>(builder: (context, state) {
           return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            const Sidebar(),
             Column(children: [
               ...List.generate(
                   programs.length, // Length of the list

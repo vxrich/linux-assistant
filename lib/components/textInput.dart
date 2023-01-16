@@ -5,13 +5,15 @@ class TextInput extends StatelessWidget {
   final String placeholder;
   final Function onChange;
   final EdgeInsets? margin;
+  final TextEditingController? controller;
 
   const TextInput(
       {super.key,
-      this.value = "",
       required this.placeholder,
       required this.onChange,
-      this.margin});
+      this.value = "",
+      this.margin,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class TextInput extends StatelessWidget {
         child: Container(
             margin: margin,
             child: TextField(
-              // controller: TextEditingController()..text = value,
+              controller: controller,
               onChanged: (String text) => onChange(text),
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
