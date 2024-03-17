@@ -12,3 +12,17 @@ It's an open source project, based on Flutter. If you want to contribute fell fr
 ⬜️ Graphic command creation D&D style<br/>
 ⬜️ Shortcut integration to open from background state<br/>
 ⬜️ Create a preference page to customization<br/>
+
+## Installation
+
+To be able to run development enviroment, first of all you need to install the packages:
+
+```bash
+flutter
+```
+
+Now it's possible to run on linux with:
+
+```bash
+flutter run
+```
