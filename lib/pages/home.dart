@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tutorial/bloc/commands_bloc.dart';
 import 'package:flutter_tutorial/models/commands.dart';
-import 'package:flutter_tutorial/sidebar.dart';
 import 'package:flutter_tutorial/textInput.dart';
 import 'package:process_run/shell.dart';
+import 'package:flutter_acrylic/flutter_acrylic.dart';
 
 import "../bloc/commands_state.dart";
 import "../bloc/commands_event.dart";
@@ -30,6 +30,16 @@ class _MyHomePageState extends State<MyHomePage> {
   var _commandText = "";
   var _commandInstruction = "";
 
+  @override
+  void initState() {
+    super.initState();
+
+    Window.setEffect(
+      effect: WindowEffect.transparent,
+      dark: false,
+    );
+  }
+
   void handleAdd(context) {
     if (_commandText != "" && _commandInstruction != "") {
       BlocProvider.of<CommandsBloc>(context).add(AddCommand(
@@ -45,14 +55,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _launchApp(command) async {
+    var shell = Shell();
+    shell.run(command);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        endDrawer: Drawer(child: Column(children: const [Text("Home")])),
+        backgroundColor: Colors.transparent,
+        endDrawer: const Drawer(child: Column(children: [Text("Home")])),
         body: Center(child:
             BlocBuilder<CommandsBloc, CommandsState>(builder: (context, state) {
           return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            const Sidebar(),
             Column(children: [
               ...List.generate(
                   programs.length, // Length of the list
@@ -118,9 +133,4 @@ class _MyHomePageState extends State<MyHomePage> {
           ]);
         })));
   }
-}
-
-_launchApp(command) async {
-  var shell = Shell();
-  shell.run(command);
 }

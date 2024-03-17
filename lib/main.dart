@@ -38,10 +38,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Window.setEffect(
-      effect: WindowEffect.transparent,
-    );
-
     return BlocProvider(
         create: (context) => CommandsBloc(),
         child: MaterialApp(
