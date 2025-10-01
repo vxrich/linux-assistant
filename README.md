@@ -13,10 +13,16 @@ It's an open source project, based on Flutter. If you want to contribute fell fr
 ⬜️ Shortcut integration to open from background state<br/>
 ⬜️ Create a preference page to customization<br/>
 
-## Run
+## Installation
 
-To run the software you have to run:
+To be able to run development enviroment, first of all you need to install the packages:
 
 ```bash
-flutter run -d <platform>
+flutter
+```
+
+Now it's possible to run on linux with:
+
+```bash
+flutter run
 ```

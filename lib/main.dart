@@ -6,14 +6,15 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter_tutorial/bloc/commands_bloc.dart';
 
+import 'package:flutter_acrylic/flutter_acrylic.dart';
+
 import 'pages/home.dart';
 
-// void main() {
-//   runApp(const MyApp());
-// }
-
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Window.initialize();
+
   final storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
@@ -40,11 +41,15 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
         create: (context) => CommandsBloc(),
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Linux assistant',
           theme: ThemeData(
-              primarySwatch: Colors.amber, brightness: Brightness.dark),
+            primarySwatch: Colors.green,
+            brightness: Brightness.dark,
+          ),
           themeMode: ThemeMode.dark,
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          routes: {
+            "/": (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+          },
         ));
   }
 }

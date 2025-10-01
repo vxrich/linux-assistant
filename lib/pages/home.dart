@@ -4,6 +4,7 @@ import 'package:flutter_tutorial/bloc/commands_bloc.dart';
 import 'package:flutter_tutorial/models/commands.dart';
 import 'package:flutter_tutorial/textInput.dart';
 import 'package:process_run/shell.dart';
+import 'package:flutter_acrylic/flutter_acrylic.dart';
 
 import "../bloc/commands_state.dart";
 import "../bloc/commands_event.dart";
@@ -29,6 +30,16 @@ class _MyHomePageState extends State<MyHomePage> {
   var _commandText = "";
   var _commandInstruction = "";
 
+  @override
+  void initState() {
+    super.initState();
+
+    Window.setEffect(
+      effect: WindowEffect.transparent,
+      dark: false,
+    );
+  }
+
   void handleAdd(context) {
     if (_commandText != "" && _commandInstruction != "") {
       BlocProvider.of<CommandsBloc>(context).add(AddCommand(
@@ -44,77 +55,82 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _launchApp(command) async {
+    var shell = Shell();
+    shell.run(command);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child:
-        BlocBuilder<CommandsBloc, CommandsState>(builder: (context, state) {
-      return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Column(children: [
-          ...List.generate(
-              programs.length, // Length of the list
-              (index) => Button(
-                  action: () => _launchApp(programs[index]["command"]),
-                  text: programs[index]["text"] as String,
-                  margin: const EdgeInsets.only(top: 10, left: 10, right: 5))),
-          ...List.generate(
-              state.commands.length, // Length of the list
-              (index) => Button(
-                  text: state.commands[index].text,
-                  action: () => _launchApp(state.commands[index].command),
-                  longPressAction: () => {
-                        BlocProvider.of<CommandsBloc>(context).add(
-                            RemoveCommand(Command(
-                                text: state.commands[index].text,
-                                command: state.commands[index].command)))
-                      },
-                  margin: const EdgeInsets.only(top: 10, left: 10, right: 5))),
-          // Button(
-          //     action: () => {
-          //           BlocProvider.of<CommandsBloc>(context).add(const AddCommand(
-          //               Command(
-          //                   text: "Prova",
-          //                   command: "google-chrome https://instagram.com")))
-          //         },
-          //     text: "+")
-        ]),
-        Expanded(
-          child: Column(children: [
-            Container(
-                margin: const EdgeInsets.only(top: 10, left: 10, right: 5),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextInput(
-                          margin: const EdgeInsets.only(right: 5),
-                          value: _commandText,
-                          placeholder: "Name comando",
-                          onChange: (text) {
-                            setState(() {
-                              _commandText = text;
-                            });
-                          }),
-                      TextInput(
-                          margin: const EdgeInsets.only(right: 5),
-                          value: _commandInstruction,
-                          placeholder: "Comando",
-                          onChange: (text) {
-                            setState(() {
-                              _commandInstruction = text;
-                            });
-                          }),
-                      Button(
-                          text: "Aggiungi comando",
-                          action: () => handleAdd(context))
-                    ]))
-          ]),
-        ),
-      ]);
-    })));
+    return Scaffold(
+        backgroundColor: Colors.transparent,
+        endDrawer: const Drawer(child: Column(children: [Text("Home")])),
+        body: Center(child:
+            BlocBuilder<CommandsBloc, CommandsState>(builder: (context, state) {
+          return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Column(children: [
+              ...List.generate(
+                  programs.length, // Length of the list
+                  (index) => Button(
+                      action: () => _launchApp(programs[index]["command"]),
+                      text: programs[index]["text"] as String,
+                      margin:
+                          const EdgeInsets.only(top: 10, left: 10, right: 5))),
+              ...List.generate(
+                  state.commands.length, // Length of the list
+                  (index) => Button(
+                      text: state.commands[index].text,
+                      action: () => _launchApp(state.commands[index].command),
+                      longPressAction: () => {
+                            BlocProvider.of<CommandsBloc>(context).add(
+                                RemoveCommand(Command(
+                                    text: state.commands[index].text,
+                                    command: state.commands[index].command)))
+                          },
+                      margin:
+                          const EdgeInsets.only(top: 10, left: 10, right: 5))),
+              // Button(
+              //     action: () => {
+              //           BlocProvider.of<CommandsBloc>(context).add(const AddCommand(
+              //               Command(
+              //                   text: "Prova",
+              //                   command: "google-chrome https://instagram.com")))
+              //         },
+              //     text: "+")
+            ]),
+            Expanded(
+              child: Column(children: [
+                Container(
+                    margin: const EdgeInsets.only(top: 10, left: 10, right: 5),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextInput(
+                              margin: const EdgeInsets.only(right: 5),
+                              value: _commandText,
+                              placeholder: "Name comando",
+                              onChange: (text) {
+                                setState(() {
+                                  _commandText = text;
+                                });
+                              }),
+                          TextInput(
+                              margin: const EdgeInsets.only(right: 5),
+                              value: _commandInstruction,
+                              placeholder: "Comando",
+                              onChange: (text) {
+                                setState(() {
+                                  _commandInstruction = text;
+                                });
+                              }),
+                          Button(
+                              text: "Aggiungi comando",
+                              action: () => handleAdd(context))
+                        ]))
+              ]),
+            ),
+          ]);
+        })));
   }
-}
-
-_launchApp(command) async {
-  var shell = Shell();
-  shell.run(command);
 }
