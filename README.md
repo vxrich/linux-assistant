@@ -12,3 +12,11 @@ It's an open source project, based on Flutter. If you want to contribute fell fr
 ⬜️ Graphic command creation D&D style<br/>
 ⬜️ Shortcut integration to open from background state<br/>
 ⬜️ Create a preference page to customization<br/>
+
+## Run
+
+To run the software you have to run:
+
+```bash
+flutter run -d <platform>
+```
